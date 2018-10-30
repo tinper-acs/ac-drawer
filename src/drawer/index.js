@@ -9,7 +9,7 @@ const propTypes = {
 	placement: PropTypes.oneOf(['left','right','top','bottom'])
 }
 
-const defaultPropsTypes = {
+const defaultProps = {
 	placement: 'left'
 }
 
@@ -17,8 +17,13 @@ class Drawer extends Component{
     constructor(props){
 		super(props);
 		this.state = {
-			
+			showDrawer: true
 		};
+		this.fMaskClick = this.fMaskClick.bind(this);
+	}
+	fMaskClick(){
+		const {onClose} = this.props;
+		onClose && onClose();
 	}
 	render(){
 		const {children,placement,show} = this.props;
@@ -30,7 +35,7 @@ class Drawer extends Component{
 
 		return (
 			<div className="drawerc" style={drawerStyle}>
-				<div className="drawer-mask"></div>
+				<div className="drawer-mask" onClick={this.fMaskClick}></div>
 				<div className={drawerClass}>
 					<div className="drawer-header"></div>
 					<div className="drawer-body">
@@ -43,7 +48,7 @@ class Drawer extends Component{
 }
 
 Drawer.propTypes = propTypes;
-Drawer.defaultProps = defaultPropsTypes;
+Drawer.defaultProps = defaultProps;
 
 
 export default Drawer;

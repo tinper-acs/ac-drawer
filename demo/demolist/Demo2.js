@@ -1,37 +1,41 @@
 /**
  *
  * @title toast
- * @description toast图标示例
+ * @description toast基本示例
  *
  */
 
 import React, { Component } from 'react';
-import Toast from '../../src/index';
+import Drawer from '../../src/index';
 
 class Demo2 extends Component {
-    fPopToast(){
-        Toast.info({
-            msg: '提交中...',
-            duration: 3000,
-            transition: 'fade',
-            icon: 'hourglass',
-            className: 'submiting'
-        });
+    constructor(props){
+        super(props);
+        this.state = {
+            placement: 'left'
+        };
     }
-    fPopToast1(){
-        Toast.info({
-            msg: '提交成功',
-            duration: 3000,
-            transition: 'fade',
-            icon: 'success',
-            className: 'submit-success'
-        });
+    fPopDrawer(){
+        
+    }
+    changeColor(e){
+        console.log(e.target.value);
     }
     render () {
+
         return (
             <div className="demoPadding">
-                <button className="btn" onClick={this.fPopToast}>提交中</button>
-                <button className="btn btn2" onClick={this.fPopToast1}>提交成功</button>
+                <div onChange={this.changeColor}>
+                    <h2>选择你喜欢的颜色</h2>    
+                    <input type="radio" id="color1" name="color" value="red" /> 
+                    <label htmlFor="color1" >red</label>
+                
+                    <input type="radio" id="color2" name="color" value="yellow"/>
+                    <label htmlFor="color2">yellow</label>
+                
+                    <input type="radio" id="color3" name="color" value="green"/>
+                    <label htmlFor="color3">green</label>
+                </div>
             </div>
         )
     }
