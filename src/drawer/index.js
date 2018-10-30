@@ -6,11 +6,16 @@ import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import './index.scss';
 
 const propTypes = {
-	placement: PropTypes.oneOf(['left','right','top','bottom'])
+	placement: PropTypes.oneOf(['left','right','top','bottom']),
+	hasHeader: PropTypes.bool,
+	show: PropTypes.bool,
+	title: PropTypes.string
 }
 
 const defaultProps = {
-	placement: 'left'
+	placement: 'left',
+	hasHeader: true,
+	show: false
 }
 
 class Drawer extends Component{
@@ -26,7 +31,7 @@ class Drawer extends Component{
 		onClose && onClose();
 	}
 	render(){
-		const {children,placement,show} = this.props;
+		const {children,placement,show,title,hasHeader} = this.props;
 		//位置样式
 		const drawerClass = classNames('drawer',`drawer-${placement}`);
 		const drawerStyle = {
@@ -37,7 +42,12 @@ class Drawer extends Component{
 			<div className="drawerc" style={drawerStyle}>
 				<div className="drawer-mask" onClick={this.fMaskClick}></div>
 				<div className={drawerClass}>
-					<div className="drawer-header"></div>
+					{
+						hasHeader ?
+						(<div className="drawer-header">
+							<div className="drawer-header-title">{title}</div>
+						</div>) : ''
+					}
 					<div className="drawer-body">
 						{children}
 					</div>
