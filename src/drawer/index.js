@@ -16,7 +16,8 @@ const propTypes = {
 	maskClosable: PropTypes.bool,
 	zIndex: PropTypes.number,
 	showClose: PropTypes.bool,
-	width: PropTypes.string
+	width: PropTypes.string,
+	height: PropTypes.string
 }
 
 const defaultProps = {
@@ -27,7 +28,8 @@ const defaultProps = {
 	maskClosable: true,
 	zIndex: 100000,
 	showClose: false,
-	width: 'auto'
+	width: 'auto',
+	height: 'auto'
 }
 
 class Drawer extends Component{
@@ -81,7 +83,7 @@ class Drawer extends Component{
 		)
 	}
 	render(){
-		const {children,placement,show,title,hasHeader,className,zIndex,width} = this.props;
+		let {children,placement,show,title,hasHeader,className,zIndex,width,height} = this.props;
 		//容器类
 		const drawercClass = classNames('drawerc',className);
 		//容器样式
@@ -103,10 +105,21 @@ class Drawer extends Component{
 		}; 
 		const translate = show ? 'translate(0,0)' : translateHideMap[placement];
 		//抽屉面板样式
+		if(placement == 'top' || placement == 'bottom'){
+			if(width == 'auto'){
+				width = '100%';
+			}
+		}
+		if(placement == 'left' || placement == 'right'){
+			if(height == 'auto'){
+				height = '100%';
+			}
+		}
 		const drawerStyle = {
 			transform: translate,
 			webkitTransform: translate,
-			width: width
+			width: width,
+			height: height
 		}
 
 		return (
