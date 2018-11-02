@@ -9,7 +9,9 @@ const propTypes = {
 	placement: PropTypes.oneOf(['left','right','top','bottom']),
 	hasHeader: PropTypes.bool,
 	show: PropTypes.bool,
-	title: PropTypes.string
+	title: PropTypes.string,
+	//用于自定义样式，覆写子组件的样式
+	className: PropTypes.string
 }
 
 const defaultProps = {
@@ -37,7 +39,9 @@ class Drawer extends Component{
 		
 	}
 	render(){
-		const {children,placement,show,title,hasHeader} = this.props;
+		const {children,placement,show,title,hasHeader,className} = this.props;
+		//容器类
+		const drawercClass = classNames('drawerc',className);
 		//容器样式
 		let drawercStyle;
 		//mask样式
@@ -76,7 +80,7 @@ class Drawer extends Component{
 		}
 
 		return (
-			<div className="drawerc" style={drawercStyle}>
+			<div className={drawercClass} style={drawercStyle}>
 				<div className="drawer-mask" style={maskStyle} onClick={this.fMaskClick}></div>
 				<div ref={(drawer) => {this.drawer = drawer}} onTransitionEnd={this.fDrawerTransitionEnd} className={drawerClass} style={drawerStyle}>
 					{
