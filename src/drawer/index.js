@@ -14,7 +14,8 @@ const propTypes = {
 	className: PropTypes.string,
 	showMask: PropTypes.bool,
 	maskClosable: PropTypes.bool,
-	zIndex: PropTypes.number
+	zIndex: PropTypes.number,
+	showClose: PropTypes.bool
 }
 
 const defaultProps = {
@@ -23,7 +24,8 @@ const defaultProps = {
 	show: false,
 	showMask: true,
 	maskClosable: true,
-	zIndex: 100000
+	zIndex: 100000,
+	showClose: false
 }
 
 class Drawer extends Component{
@@ -34,7 +36,7 @@ class Drawer extends Component{
 			width: '0'
 		};
 		this.drawer = null;
-		bindAll(this,['fMaskClick','fDrawerTransitionEnd','renderMask']);
+		bindAll(this,['fMaskClick','fDrawerTransitionEnd','renderMask','renderClose','fCloseClick']);
 	}
 	fMaskClick(){
 		const {maskClosable} = this.props;
@@ -42,6 +44,10 @@ class Drawer extends Component{
 			const {onClose} = this.props;
 			onClose && onClose();
 		}
+	}
+	fCloseClick(){
+		const {onClose} = this.props;
+		onClose && onClose();
 	}
 	fDrawerTransitionEnd(e){
 		
@@ -63,7 +69,13 @@ class Drawer extends Component{
 			}
 		}
 		return (
-			showMask ? <div className="drawer-mask" style={maskStyle} onClick={this.fMaskClick}></div> : ''
+			showMask ? <div className="drawer-mask" style={maskStyle} onClick={this.fMaskClick}></div> : null
+		)
+	}
+	renderClose(){
+		const {showClose} = this.props;
+		return (
+			showClose ? <i className="drawer-close" onClick={this.fCloseClick}>×</i> : null
 		)
 	}
 	render(){
@@ -97,6 +109,7 @@ class Drawer extends Component{
 			<div className={drawercClass} style={drawercStyle}>
 				{this.renderMask()}
 				<div ref={(drawer) => {this.drawer = drawer}} onTransitionEnd={this.fDrawerTransitionEnd} className={drawerClass} style={drawerStyle}>
+					{this.renderClose()}
 					{
 						hasHeader ?
 						(<div className="drawer-header">
