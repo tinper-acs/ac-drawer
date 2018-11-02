@@ -12,14 +12,16 @@ const propTypes = {
 	show: PropTypes.bool,
 	title: PropTypes.string,
 	className: PropTypes.string,
-	showMask: PropTypes.bool
+	showMask: PropTypes.bool,
+	maskClosable: PropTypes.bool
 }
 
 const defaultProps = {
 	placement: 'left',
 	hasHeader: true,
 	show: false,
-	showMask: true
+	showMask: true,
+	maskClosable: true
 }
 
 class Drawer extends Component{
@@ -33,8 +35,11 @@ class Drawer extends Component{
 		bindAll(this,['fMaskClick','fDrawerTransitionEnd','renderMask']);
 	}
 	fMaskClick(){
-		const {onClose} = this.props;
-		onClose && onClose();
+		const {maskClosable} = this.props;
+		if(maskClosable){
+			const {onClose} = this.props;
+			onClose && onClose();
+		}
 	}
 	fDrawerTransitionEnd(e){
 		
