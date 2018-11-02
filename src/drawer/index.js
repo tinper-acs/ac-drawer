@@ -25,6 +25,7 @@ class Drawer extends Component{
 			showDrawer: true,
 			width: '0'
 		};
+		this.drawer = null;
 		this.fMaskClick = this.fMaskClick.bind(this);
 		this.fDrawerTransitionEnd = this.fDrawerTransitionEnd.bind(this);
 	}
@@ -33,12 +34,7 @@ class Drawer extends Component{
 		onClose && onClose();
 	}
 	fDrawerTransitionEnd(e){
-		const {show} = this.props;
-		if(!show){
-			this.setState({
-				width: '0'
-			});
-		}
+		
 	}
 	render(){
 		const {children,placement,show,title,hasHeader} = this.props;
@@ -72,14 +68,8 @@ class Drawer extends Component{
 			right: 'translateX(100%)',
 			top: 'translateY(-100%)',
 			bottom: 'translateY(100%)'
-		};
-		const translateShowMap = {
-			left: 'translateX(0)',
-			right: 'translateX(0)',
-			top: 'translateY(0)',
-			bottom: 'translateY(0)'
-		}
-		const translate = show ? translateShowMap[placement] : translateHideMap[placement];
+		}; 
+		const translate = show ? 'translate(0,0)' : translateHideMap[placement];
 		//抽屉面板样式
 		const drawerStyle = {
 			transform: translate
@@ -88,7 +78,7 @@ class Drawer extends Component{
 		return (
 			<div className="drawerc" style={drawercStyle}>
 				<div className="drawer-mask" style={maskStyle} onClick={this.fMaskClick}></div>
-				<div onTransitionEnd={this.fDrawerTransitionEnd} className={drawerClass} style={drawerStyle}>
+				<div ref={(drawer) => {this.drawer = drawer}} onTransitionEnd={this.fDrawerTransitionEnd} className={drawerClass} style={drawerStyle}>
 					{
 						hasHeader ?
 						(<div className="drawer-header">
