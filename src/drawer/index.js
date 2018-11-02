@@ -13,7 +13,8 @@ const propTypes = {
 	title: PropTypes.string,
 	className: PropTypes.string,
 	showMask: PropTypes.bool,
-	maskClosable: PropTypes.bool
+	maskClosable: PropTypes.bool,
+	zIndex: PropTypes.number
 }
 
 const defaultProps = {
@@ -21,7 +22,8 @@ const defaultProps = {
 	hasHeader: true,
 	show: false,
 	showMask: true,
-	maskClosable: true
+	maskClosable: true,
+	zIndex: 100000
 }
 
 class Drawer extends Component{
@@ -65,20 +67,16 @@ class Drawer extends Component{
 		)
 	}
 	render(){
-		const {children,placement,show,title,hasHeader,className} = this.props;
+		const {children,placement,show,title,hasHeader,className,zIndex} = this.props;
 		//容器类
 		const drawercClass = classNames('drawerc',className);
 		//容器样式
-		let drawercStyle;
+		let drawercStyle = {zIndex:zIndex}
 		if(show){
-			drawercStyle = {
-				width: '100%'
-			}
+			drawercStyle.width = '100%';
 		}
 		else{
-			drawercStyle = {
-				width: 0
-			}
+			drawercStyle.width = 0;
 		}
 		//抽屉类
 		const drawerClass = classNames('drawer',`drawer-${placement}`);
