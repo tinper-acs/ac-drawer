@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import {bindAll} from './common';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import './index.scss';
 
@@ -10,14 +11,15 @@ const propTypes = {
 	hasHeader: PropTypes.bool,
 	show: PropTypes.bool,
 	title: PropTypes.string,
-	//用于自定义样式，覆写子组件的样式
-	className: PropTypes.string
+	className: PropTypes.string,
+	showMask: PropTypes.bool
 }
 
 const defaultProps = {
 	placement: 'left',
 	hasHeader: true,
-	show: false
+	show: false,
+	showMask: true
 }
 
 class Drawer extends Component{
@@ -28,8 +30,7 @@ class Drawer extends Component{
 			width: '0'
 		};
 		this.drawer = null;
-		this.fMaskClick = this.fMaskClick.bind(this);
-		this.fDrawerTransitionEnd = this.fDrawerTransitionEnd.bind(this);
+		bindAll(this,['fMaskClick','fDrawerTransitionEnd','renderMask']);
 	}
 	fMaskClick(){
 		const {onClose} = this.props;
@@ -38,29 +39,39 @@ class Drawer extends Component{
 	fDrawerTransitionEnd(e){
 		
 	}
-	render(){
-		const {children,placement,show,title,hasHeader,className} = this.props;
-		//容器类
-		const drawercClass = classNames('drawerc',className);
-		//容器样式
-		let drawercStyle;
+	renderMask(){
+		const {show,showMask,fMaskClick} = this.props;
 		//mask样式
 		let maskStyle;
 		if(show){
-			drawercStyle = {
-				width: '100%'
-			}
 			maskStyle = {
 				opacity: 1,
 				width: '100%'
 			}
 		}
 		else{
-			drawercStyle = {
-				width: 0
-			}
 			maskStyle = {
 				opacity: 0,
+				width: 0
+			}
+		}
+		return (
+			showMask ? <div className="drawer-mask" style={maskStyle} onClick={this.fMaskClick}></div> : ''
+		)
+	}
+	render(){
+		const {children,placement,show,title,hasHeader,className} = this.props;
+		//容器类
+		const drawercClass = classNames('drawerc',className);
+		//容器样式
+		let drawercStyle;
+		if(show){
+			drawercStyle = {
+				width: '100%'
+			}
+		}
+		else{
+			drawercStyle = {
 				width: 0
 			}
 		}
@@ -81,7 +92,7 @@ class Drawer extends Component{
 
 		return (
 			<div className={drawercClass} style={drawercStyle}>
-				<div className="drawer-mask" style={maskStyle} onClick={this.fMaskClick}></div>
+				{this.renderMask()}
 				<div ref={(drawer) => {this.drawer = drawer}} onTransitionEnd={this.fDrawerTransitionEnd} className={drawerClass} style={drawerStyle}>
 					{
 						hasHeader ?
