@@ -17,7 +17,8 @@ const propTypes = {
 	zIndex: PropTypes.number,
 	showClose: PropTypes.bool,
 	width: PropTypes.string,
-	height: PropTypes.string
+	height: PropTypes.string,
+	destroyOnClose: PropTypes.bool
 }
 
 const defaultProps = {
@@ -29,7 +30,8 @@ const defaultProps = {
 	zIndex: 100000,
 	showClose: false,
 	width: 'auto',
-	height: 'auto'
+	height: 'auto',
+	destroyOnClose: false
 }
 
 class Drawer extends Component{
@@ -40,7 +42,7 @@ class Drawer extends Component{
 			width: '0'
 		};
 		this.drawer = null;
-		bindAll(this,['fMaskClick','fDrawerTransitionEnd','renderMask','renderClose','fCloseClick']);
+		bindAll(this,['fMaskClick','fDrawerTransitionEnd','renderMask','renderClose','fCloseClick','renderBody']);
 	}
 	fMaskClick(){
 		const {maskClosable} = this.props;
@@ -82,18 +84,13 @@ class Drawer extends Component{
 			showClose ? <i className="drawer-close" onClick={this.fCloseClick}>×</i> : null
 		)
 	}
-	render(){
-		let {children,placement,show,title,hasHeader,className,zIndex,width,height} = this.props;
-		//容器类
-		const drawercClass = classNames('drawerc',className);
-		//容器样式
-		let drawercStyle = {zIndex:zIndex}
-		if(show){
-			drawercStyle.width = '100%';
+	renderBody(){
+		const {destroyOnClose,show} = this.props;
+		if(destroyOnClose && !show){
+			return null;
 		}
-		else{
-			drawercStyle.width = 0;
-		}
+		console.log(destroyOnClose,!show);
+		let {hasHeader,title,children,width,height,placement} = this.props;
 		//抽屉类
 		const drawerClass = classNames('drawer',`drawer-${placement}`);
 		//根据位置获取抽屉样式
@@ -117,26 +114,41 @@ class Drawer extends Component{
 		}
 		const drawerStyle = {
 			transform: translate,
-			webkitTransform: translate,
+			WebkitTransform: translate,
 			width: width,
 			height: height
+		}
+		const closer = this.renderClose();
+		const header = (
+			hasHeader ? (<div className="drawer-header"><div className="drawer-header-title">{title}</div></div>) : ''
+		)
+		return (
+			<div ref={(drawer) => {this.drawer = drawer}} onTransitionEnd={this.fDrawerTransitionEnd} className={drawerClass} style={drawerStyle}>
+				{closer}
+				{header}
+				<div className="drawer-body">
+					{children}
+				</div>
+			</div>
+		)
+	}
+	render(){
+		let {show,className,zIndex} = this.props;
+		//容器类
+		const drawercClass = classNames('drawerc',className);
+		//容器样式
+		let drawercStyle = {zIndex:zIndex}
+		if(show){
+			drawercStyle.width = '100%';
+		}
+		else{
+			drawercStyle.width = 0;
 		}
 
 		return (
 			<div className={drawercClass} style={drawercStyle}>
 				{this.renderMask()}
-				<div ref={(drawer) => {this.drawer = drawer}} onTransitionEnd={this.fDrawerTransitionEnd} className={drawerClass} style={drawerStyle}>
-					{this.renderClose()}
-					{
-						hasHeader ?
-						(<div className="drawer-header">
-							<div className="drawer-header-title">{title}</div>
-						</div>) : ''
-					}
-					<div className="drawer-body">
-						{children}
-					</div>
-				</div>
+				{this.renderBody()}
 			</div>
 		)
 	}
