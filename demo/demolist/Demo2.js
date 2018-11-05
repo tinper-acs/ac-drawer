@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import Drawer from '../../src/index';
 import Radio from './Radio/index';
 
-class Demo1 extends Component {
+class Demo2 extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -68,4 +68,4 @@ class Demo1 extends Component {
     }
 }
 
-export default Demo1;
+export default Demo2;
