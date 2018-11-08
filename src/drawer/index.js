@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {bindAll} from './common';
+import {bindAll,isNumber} from './common';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import './index.scss';
 
@@ -16,8 +16,8 @@ const propTypes = {
 	maskClosable: PropTypes.bool,
 	zIndex: PropTypes.number,
 	showClose: PropTypes.bool,
-	width: PropTypes.string,
-	height: PropTypes.string,
+	width: PropTypes.oneOfType([PropTypes.string,PropTypes.number]),
+	height: PropTypes.oneOfType([PropTypes.string,PropTypes.number]),
 	destroyOnClose: PropTypes.bool
 }
 
@@ -89,7 +89,6 @@ class Drawer extends Component{
 		if(destroyOnClose && !show){
 			return null;
 		}
-		console.log(destroyOnClose,!show);
 		let {hasHeader,title,children,width,height,placement} = this.props;
 		//抽屉类
 		const drawerClass = classNames('drawer',`drawer-${placement}`);
@@ -102,6 +101,12 @@ class Drawer extends Component{
 		}; 
 		const translate = show ? 'translate(0,0)' : translateHideMap[placement];
 		//抽屉面板样式
+		if(isNumber(width)){
+			width = width + 'px';
+		}
+		if(isNumber(height)){
+			height = height + 'px';
+		}
 		if(placement == 'top' || placement == 'bottom'){
 			if(width == 'auto'){
 				width = '100%';
