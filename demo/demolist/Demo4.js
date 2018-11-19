@@ -59,10 +59,10 @@ class Demo4 extends Component {
                 </Drawer>
                 <Drawer width={'320px'} zIndex={1000001} title={secondTitle} show={showSecondDrawer} placement={secondPlacement} onClose={this.fCloseSecondDrawer}>
                     <div className="con">
-                        <p>锦瑟无端五十弦，一弦一柱思华年。</p>
-                        <p>庄生晓梦迷蝴蝶，望帝春心托杜鹃。</p>
-                        <p>沧海月明珠有泪，蓝田日暖玉生烟。</p>
-                        <p>此情可待成追忆，只是当时已惘然。</p>
+                        <p>这是第一行文字</p>
+                        <p>这是第二行文字</p>
+                        <p>这是第三行文字，啦啦啦~</p>  
+                        <p>这是第四行文字，啦啦啦~</p>  
                     </div>
                 </Drawer>  
             </div>
