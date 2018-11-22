@@ -16,12 +16,25 @@ class Demo5 extends Component {
             showDrawer: false,
             title: 'Basic Drawer',
             list: [
-                {id:1, name: 'xiaoming', age:23},
-                {id:2, name: 'xiaozhang', age:25}
-            ]
+                {id:1, name: 'XiaoMing',hometown:'henan', age:23, school: 'MIT', avatar: '/demo/demolist/imgs/xiaoming.png',
+                 province:'henan',city:'shangqiu',county:'suiyangqu',country:'chengguanzhen',
+                 phone:'138xxxxxxxx',email:'xiaoming@168.com',bio:'xiaoming@weibo.com',weixin:'xiaoming'},
+                {id:2, name: 'XiaoZhang',hometown:'hebei', age:25, school: 'MIT', avatar: '/demo/demolist/imgs/xiaozhang.png',
+                 province:'beijing',city:'beijing',county:'changping',country:'huilongguan',
+                 phone:'139xxxxxxxx',email:'xiaozhang@168.com',bio:'xiaozhang@weibo.com',weixin:'xiaozhang'}
+            ],
+            curItem: {}
         };
         this.fPopDrawer = this.fPopDrawer.bind(this);
         this.fCloseDrawer = this.fCloseDrawer.bind(this);
+        this.fItemClick = this.fItemClick.bind(this);
+    }
+    fItemClick(ev,item){
+        this.setState({
+            curItem: item,
+            showDrawer: true,
+            title: item.name + '\'s Profile' 
+        })
     }
     fPopDrawer(){
         this.setState({
@@ -34,25 +47,116 @@ class Demo5 extends Component {
         })
     }
     render () {
-        let {list,title,placement,showDrawer} = this.state;
+        let {list,title,placement,showDrawer,curItem} = this.state;
 
         return (
-            <div className="demoPadding demo1">
-                <div className="btnc">  
-                    <button className="btn" onClick={this.fPopDrawer}>打开</button>
-                </div>
+            <div className="demoPadding demo5">
                 <ul className="infos">
                     {
                         list.map(item => {
                             return  (<li key={item.id} className="info-item">
-                                        <a href="javascript:;">{item.name}</a>
+                                        <div className="item-inner">
+                                            <div className="item-left">
+                                                <img className="item-avatar" src={item.avatar} />
+                                            </div>
+                                            <div className="item-main">
+                                                <div>{item.name}</div>
+                                                <div>{item.email}</div>
+                                                <div>{item.hometown}</div>
+                                            </div>
+                                            <div className="item-right">
+                                                <a className="item-link" onClick={(ev) => this.fItemClick(ev,item)} href="javascript:;">View</a>
+                                            </div>
+                                        </div>
                                     </li>)
                         })
                     }
                 </ul>
                 <Drawer width={500} title={title} show={showDrawer} placement={placement} onClose={this.fCloseDrawer}>
                     <div className="con">
-                        
+                        <div className="section">
+                            <div className="sec-title">Avatar</div>
+                            <div className="sec-body">
+                                <div className="row">
+                                    <img className="sec-avatar" src={curItem.avatar} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="section">
+                            <div className="sec-title">Profile</div>
+                            <div className="sec-body">
+                                <div className="row">
+                                    <div className="col">
+                                        <span>Name: </span>
+                                        <span>{curItem.name}</span>
+                                    </div>
+                                    <div className="col">
+                                        <span>hometown: </span>
+                                        <span>{curItem.hometown}</span>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <span>Age: </span>
+                                        <span>{curItem.age}</span>
+                                    </div>
+                                    <div className="col">
+                                        <span>School: </span>
+                                        <span>{curItem.school}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="section">
+                            <div className="sec-title">Address</div>
+                            <div className="sec-body">
+                                <div className="row">
+                                    <div className="col">
+                                        <span>Province: </span>
+                                        <span>{curItem.province}</span>
+                                    </div>
+                                    <div className="col">
+                                        <span>City: </span>
+                                        <span>{curItem.city}</span>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <span>County: </span>
+                                        <span>{curItem.county}</span>
+                                    </div>
+                                    <div className="col">
+                                        <span>Country: </span>
+                                        <span>{curItem.country}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="section">
+                            <div className="sec-title">Contract</div>
+                            <div className="sec-body">
+                                <div className="row">
+                                    <div className="col">
+                                        <span>Phone: </span>
+                                        <span>{curItem.phone}</span>
+                                    </div>
+                                    <div className="col">
+                                        <span>Email: </span>
+                                        <span>{curItem.email}</span>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <span>Bio: </span>
+                                        <span>{curItem.bio}</span>
+                                    </div>
+                                    <div className="col">
+                                        <span>Weixin: </span>
+                                        <span>{curItem.weixin}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </Drawer>
             </div>
