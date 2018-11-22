@@ -34,15 +34,40 @@ const defaultProps = {
 	destroyOnClose: false
 }
 
+const DrawerContext = React.createContext(null);
+
 class Drawer extends Component{
     constructor(props){
 		super(props);
 		this.state = {
 			showDrawer: true,
-			width: '0'
+			width: '0',
+			push: false
 		};
 		this.drawer = null;
-		bindAll(this,['fMaskClick','fDrawerTransitionEnd','renderMask','renderClose','fCloseClick','renderBody']);
+		this.parentDrawer = null;
+		bindAll(this,['fMaskClick','fDrawerTransitionEnd','renderMask','renderClose','fCloseClick','renderBody','renderAll']);
+	}
+	componentDidUpdate(preProps){
+		//在有父级抽屉时候，子级触发父级向外移动一段距离
+		if(preProps.show != this.props.show && this.parentDrawer){
+			if(this.props.show){
+				this.parentDrawer.push();
+			}
+			else{
+				this.parentDrawer.pull();
+			}
+		}
+	}
+	push(){
+		this.setState({
+			push: true
+		})
+	}
+	pull(){
+		this.setState({
+			push: false
+		})
 	}
 	fMaskClick(){
 		const {maskClosable} = this.props;
@@ -90,6 +115,7 @@ class Drawer extends Component{
 			return null;
 		}
 		let {hasHeader,title,children,width,height,placement} = this.props;
+		let {push} = this.state;
 		//抽屉类
 		const drawerClass = classNames('drawer',`drawer-${placement}`);
 		//根据位置获取抽屉样式
@@ -99,7 +125,18 @@ class Drawer extends Component{
 			top: 'translateY(-100%)',
 			bottom: 'translateY(100%)'
 		}; 
-		const translate = show ? 'translate(0,0)' : translateHideMap[placement];
+		let translateShow = 'translate(0,0)';
+		if(push){
+			const pushNum = 50;
+			const translateShowMap = {
+				left: `translate(${pushNum}px,0)`,
+				right: `translate(-${pushNum}px,0)`,
+				top: `translate(0,${pushNum}px)`,
+				bottom: `translate(0,-${pushNum}px)`
+			}
+			translateShow = translateShowMap[placement];
+		}
+		const translate = show ? translateShow : translateHideMap[placement];
 		//抽屉面板样式
 		if(isNumber(width)){
 			width = width + 'px';
@@ -128,16 +165,18 @@ class Drawer extends Component{
 			hasHeader ? (<div className="drawer-header"><div className="drawer-header-title">{title}</div></div>) : ''
 		)
 		return (
-			<div ref={(drawer) => {this.drawer = drawer}} onTransitionEnd={this.fDrawerTransitionEnd} className={drawerClass} style={drawerStyle}>
-				{closer}
-				{header}
-				<div className="drawer-body">
-					{children}
+			<DrawerContext.Provider value={this}>
+				<div ref={(drawer) => {this.drawer = drawer}} onTransitionEnd={this.fDrawerTransitionEnd} className={drawerClass} style={drawerStyle}>
+					{closer}
+					{header}
+					<div className="drawer-body">
+						{children}
+					</div>
 				</div>
-			</div>
+			</DrawerContext.Provider>
 		)
 	}
-	render(){
+	renderAll(value){
 		let {show,className,zIndex} = this.props;
 		//容器类
 		const drawercClass = classNames('drawerc',className);
@@ -149,12 +188,19 @@ class Drawer extends Component{
 		else{
 			drawercStyle.width = 0;
 		}
+		//获取父级抽屉
+		this.parentDrawer = value;
 
 		return (
 			<div className={drawercClass} style={drawercStyle}>
 				{this.renderMask()}
 				{this.renderBody()}
 			</div>
+		)
+	}
+	render(){
+		return (
+			<DrawerContext.Consumer>{this.renderAll}</DrawerContext.Consumer>
 		)
 	}
 }

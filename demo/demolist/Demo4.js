@@ -56,15 +56,15 @@ class Demo4 extends Component {
                     <div className="con">
                         <button onClick={this.fPopSecondDrawer} className="btn">二级抽屉</button>
                     </div>
+                    <Drawer width={'320px'} zIndex={1000001} title={secondTitle} show={showSecondDrawer} placement={secondPlacement} onClose={this.fCloseSecondDrawer}>
+                        <div className="con">
+                            <p>这是第一行文字</p>
+                            <p>这是第二行文字</p>
+                            <p>这是第三行文字，啦啦啦~</p>  
+                            <p>这是第四行文字，啦啦啦~</p>  
+                        </div>
+                    </Drawer>  
                 </Drawer>
-                <Drawer width={'320px'} zIndex={1000001} title={secondTitle} show={showSecondDrawer} placement={secondPlacement} onClose={this.fCloseSecondDrawer}>
-                    <div className="con">
-                        <p>这是第一行文字</p>
-                        <p>这是第二行文字</p>
-                        <p>这是第三行文字，啦啦啦~</p>  
-                        <p>这是第四行文字，啦啦啦~</p>  
-                    </div>
-                </Drawer>  
             </div>
         )
     }
