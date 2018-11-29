@@ -109,7 +109,7 @@ module.exports = webpackMerge(baseConfig, {
       //   filename: "./index.html"
       // }),
       new MiniCssExtractPlugin({
-        filename: 'index.css',
+        filename: 'ac-drawer.css',
       })
   ]
 })
