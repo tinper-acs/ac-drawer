@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title></title>
+    <title>ac-drawer</title>
     <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.css"/>
     <link type="text/css" rel="stylesheet" href="assets/css/bootstrap-responsive.css"/>
     <link type="text/css" rel="stylesheet" href="assets/css/pilcrow.css"/>
@@ -14,9 +14,115 @@
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span3"><ul class="nav nav-list">
+    <li class="sidebar-header-2"><a href="#ac-drawer">ac-drawer</a></li>
+    <li class="sidebar-header-3"><a href="#1.-简介">1. 简介</a></li>
+    <li class="sidebar-header-3"><a href="#2.-安装">2. 安装</a></li>
+    <li class="sidebar-header-3"><a href="#3.-使用">3. 使用</a></li>
+    <li class="sidebar-header-3"><a href="#4.-预览">4. 预览</a></li>
+    <li class="sidebar-header-3"><a href="#5.-参数">5. 参数</a></li>
 </ul>
       </div>
-      <div class="span9 main"><p>### </p>
+      <div class="span9 main"><h2 id="ac-drawer">ac-drawer</h2>
+<p><a href="https://www.npmjs.com/package/ac-drawer"><img src="https://img.shields.io/npm/v/ac-drawer.svg" alt="npm version"></a>
+<a href="https://npmjs.org/package/ac-drawer"><img src="http://img.shields.io/npm/dt/ac-drawer.svg?style=flat" alt="NPM downloads"></a></p>
+<h3 id="1.-简介">1. 简介</h3>
+<p>一个基于react的抽屉组件，可以从上下左右这些侧面弹出一个层，显示特定的内容</p>
+<h3 id="2.-安装">2. 安装</h3>
+<pre class="hljs"><code>npm install ac-drawer -S</code></pre><h3 id="3.-使用">3. 使用</h3>
+<pre class="hljs"><code><span class="hljs-keyword">import</span> Drawer <span class="hljs-keyword">from</span> <span class="hljs-string">'ac-drawer'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'ac-drawer/dist/ac-drawer.css'</span>;</code></pre><pre class="hljs"><code>&lt;Drawer title={<span class="hljs-string">'basic drawer'</span>} show={<span class="hljs-literal">true</span>} placement={<span class="hljs-string">'right'</span>} onClose={<span class="hljs-keyword">this</span>.fCloseDrawer}&gt;
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"con"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>这是第一行文字<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>这是第二行文字<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>这是第三行文字，啦啦啦~<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>                                                 
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+&lt;<span class="hljs-regexp">/Drawer&gt;</span></code></pre><p>更多用法可以参考<a href="./demo/demolist">demo</a>文件夹中的示例</p>
+<h3 id="4.-预览">4. 预览</h3>
+<h3 id="5.-参数">5. 参数</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>show</td>
+<td><code>string</code></td>
+<td></td>
+<td>true is show drawer, false is not </td>
+</tr>
+<tr>
+<td>placement</td>
+<td><code>string</code></td>
+<td><code>right</code></td>
+<td>Position of drawer. There are 4 pre-defined positions: <code>left</code>,<code>right</code>,<code>top</code>,<code>bottom</code></td>
+</tr>
+<tr>
+<td>hasHeader</td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+<td>whether to show header or not, true is show, false is not</td>
+</tr>
+<tr>
+<td>title</td>
+<td><code>string</code></td>
+<td></td>
+<td>drawer&#39;s title showed in header</td>
+</tr>
+<tr>
+<td>className</td>
+<td><code>string</code></td>
+<td></td>
+<td>className on drawer&#39;s container, for customing drawer&#39;s style</td>
+</tr>
+<tr>
+<td>showMask</td>
+<td><code>boolean</code></td>
+<td><code>2000</code></td>
+<td>whether to show mask or not, true is show, false is not</td>
+</tr>
+<tr>
+<td>maskClosable</td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>whether to close drawer or not, true is close, false is not</td>
+</tr>
+<tr>
+<td>zIndex</td>
+<td><code>number</code></td>
+<td><code>100000</code></td>
+<td>drawer container&#39;s zIndex in css</td>
+</tr>
+<tr>
+<td>showClose</td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>whether to show close button, true is show, false is not</td>
+</tr>
+<tr>
+<td>width</td>
+<td><code>number</code> <code>string</code></td>
+<td></td>
+<td>drawer&#39;s width</td>
+</tr>
+<tr>
+<td>height</td>
+<td><code>number</code> <code>string</code></td>
+<td></td>
+<td>drawer&#39;s height</td>
+</tr>
+<tr>
+<td>destroyOnClose</td>
+<td><code>boolean</code></td>
+<td></td>
+<td>whether to destroy content in drawer, true is destory, false is not</td>
+</tr>
+</tbody>
+</table>
       </div>
     </div>
   </div>
