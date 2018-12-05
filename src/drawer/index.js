@@ -18,7 +18,8 @@ const propTypes = {
 	showClose: PropTypes.bool,
 	width: PropTypes.oneOfType([PropTypes.string,PropTypes.number]),
 	height: PropTypes.oneOfType([PropTypes.string,PropTypes.number]),
-	destroyOnClose: PropTypes.bool
+	destroyOnClose: PropTypes.bool,
+	container: PropTypes.string
 }
 
 const defaultProps = {
@@ -31,7 +32,8 @@ const defaultProps = {
 	showClose: false,
 	width: 'auto',
 	height: 'auto',
-	destroyOnClose: false
+	destroyOnClose: false,
+	container: 'body'
 }
 
 const DrawerContext = React.createContext(null);
@@ -199,8 +201,11 @@ class Drawer extends Component{
 		)
 	}
 	render(){
+		const {container} = this.props;
+		const conDom = document.querySelector(container);
+
 		return (
-			<DrawerContext.Consumer>{this.renderAll}</DrawerContext.Consumer>
+			ReactDOM.createPortal(<DrawerContext.Consumer>{this.renderAll}</DrawerContext.Consumer>,conDom)
 		)
 	}
 }
