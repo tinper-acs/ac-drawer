@@ -1,7 +1,7 @@
 /**
  *
- * @title Drawer
- * @description Drawer自定义位置示例
+ * @title Drawer位置示例
+ * @description 从上下左右弹出抽屉
  *
  */
 
@@ -41,7 +41,7 @@ class Demo2 extends Component {
         title = placement[0].toUpperCase() + placement.slice(1) + ' ' + title;
 
         return (
-            <div className="demoPadding demo1">
+            <div className="demoPadding">
                 <div className="placementc">
                     <Radio.RadioGroup
                         name="placement"
@@ -56,7 +56,7 @@ class Demo2 extends Component {
                 <div className="btnc">  
                     <button className="btn" onClick={this.fPopDrawer}>打开</button>
                 </div>
-                <Drawer title={title} show={showDrawer} placement={placement} onClose={this.fCloseDrawer}>
+                <Drawer className={'demo2'} title={title} show={showDrawer} placement={placement} onClose={this.fCloseDrawer}>
                     <div className="con">
                         <p>这是第一行文字</p>
                         <p>这是第二行文字</p>

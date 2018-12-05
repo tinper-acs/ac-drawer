@@ -1,7 +1,7 @@
 /**
  *
- * @title Drawer
- * @description Drawer基本示例
+ * @title Drawer基本示例
+ * @description 弹出文字
  *
  */
 
@@ -33,11 +33,11 @@ class Demo1 extends Component {
         let {placement,showDrawer,title} = this.state;
 
         return (
-            <div className="demoPadding demo1">
+            <div className="demoPadding">
                 <div className="btnc">  
                     <button className="btn" onClick={this.fPopDrawer}>打开</button>
                 </div>
-                <Drawer title={title} show={showDrawer} placement={placement} onClose={this.fCloseDrawer}>
+                <Drawer className={'demo1'} title={title} show={showDrawer} placement={placement} onClose={this.fCloseDrawer}>
                     <div className="con">
                         <p>这是第一行文字</p>
                         <p>这是第二行文字</p>

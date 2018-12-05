@@ -1,7 +1,7 @@
 /**
  *
- * @title Drawer
- * @description Drawer多层抽屉
+ * @title Drawer多层抽屉示例
+ * @description 弹出多层抽屉
  *
  */
 
@@ -48,15 +48,15 @@ class Demo4 extends Component {
         let {placement,showDrawer,title,secondTitle,showSecondDrawer,secondPlacement} = this.state;
 
         return (
-            <div className="demoPadding demo1">
+            <div className="demoPadding">
                 <div className="btnc">  
                     <button className="btn" onClick={this.fPopDrawer}>打开</button>
                 </div>
-                <Drawer width={500} title={title} show={showDrawer} placement={placement} onClose={this.fCloseDrawer}>
+                <Drawer className={'demo4'} width={500} title={title} show={showDrawer} placement={placement} onClose={this.fCloseDrawer}>
                     <div className="con">
                         <button onClick={this.fPopSecondDrawer} className="btn">二级抽屉</button>
                     </div>
-                    <Drawer width={'320px'} zIndex={1000001} title={secondTitle} show={showSecondDrawer} placement={secondPlacement} onClose={this.fCloseSecondDrawer}>
+                    <Drawer className={'demo4'} width={'320px'} zIndex={1000001} title={secondTitle} show={showSecondDrawer} placement={secondPlacement} onClose={this.fCloseSecondDrawer}>
                         <div className="con">
                             <p>这是第一行文字</p>
                             <p>这是第二行文字</p>

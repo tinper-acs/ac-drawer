@@ -1,7 +1,7 @@
 /**
  *
- * @title Drawer5
- * @description Drawer信息展示
+ * @title Drawer5列表信息示例
+ * @description 弹出列表中一项的信息
  *
  */
 
@@ -72,7 +72,7 @@ class Demo5 extends Component {
                         })
                     }
                 </ul>
-                <Drawer width={500} title={title} show={showDrawer} placement={placement} onClose={this.fCloseDrawer}>
+                <Drawer className={'demo5'} width={500} title={title} show={showDrawer} placement={placement} onClose={this.fCloseDrawer}>
                     <div className="con">
                         <div className="section">
                             <div className="sec-title">Avatar</div>
