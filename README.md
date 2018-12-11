@@ -37,17 +37,17 @@ import 'ac-drawer/dist/ac-drawer.css';
 
 Parameter | Type |Default| Description
 --------- | ---- | ------|-----------
-show | `string` | | true is show drawer, false is not 
-placement | `string` | `right` | Position of drawer. There are 4 pre-defined positions: `left`,`right`,`top`,`bottom`
-hasHeader | `boolean` | `true` | whether to show header or not, true is show, false is not
-title | `string` |  |  drawer's title showed in header
-className | `string` | | className on drawer's container, for customing drawer's style
-showMask | `boolean` | `2000` | whether to show mask or not, true is show, false is not
-maskClosable | `boolean` | `false` |  whether to close drawer or not, true is close, false is not
-zIndex | `number` | `100000` | drawer container's zIndex in css
-showClose | `boolean`  | `false` | whether to show close button, true is show, false is not
-width | `number` `string` |  | drawer's width
-height | `number` `string` |  | drawer's height
-destroyOnClose | `boolean` |  | whether to destroy content in drawer, true is destory, false is not
+show | `string` | | 是否显示抽屉组件
+placement | `string` | `right` | 抽屉的位置。有四个预置的选项: `left`,`right`,`top`,`bottom`
+hasHeader | `boolean` | `true` | 是否显示抽屉的头部
+title | `string` |  |  抽屉的头部的标题
+className | `string` | | 抽屉容器的class, 用来自定义组件样式
+showMask | `boolean` | `true` | 是否显示遮罩
+maskClosable | `boolean` | `false` |  点击遮罩是否可以关闭抽屉
+zIndex | `number` | `100000` | 抽屉容器的层级，可以修改层级
+showClose | `boolean`  | `false` | 是否显示关闭按钮
+width | `number` `string` |  | 抽屉的宽度
+height | `number` `string` |  | 抽屉的高度
+destroyOnClose | `boolean` |  | 关闭时候是否销毁抽屉的内容
 
 
