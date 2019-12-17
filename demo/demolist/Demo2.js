@@ -41,7 +41,7 @@ class Demo2 extends Component {
         title = placement[0].toUpperCase() + placement.slice(1) + ' ' + title;
 
         return (
-            <div className="demoPadding">
+            <div className="demoPadding demo2">
                 <div className="placementc">
                     <Radio.RadioGroup
                         name="placement"
