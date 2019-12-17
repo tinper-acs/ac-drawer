@@ -1,3 +1,4 @@
+/*! ac-drawer v__VERSION__ */
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -213,5 +214,6 @@ class Drawer extends Component{
 Drawer.propTypes = propTypes;
 Drawer.defaultProps = defaultProps;
 
+Drawer.version = '__VERSION__';
 
 export default Drawer;
